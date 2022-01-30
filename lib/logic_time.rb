@@ -13,6 +13,7 @@ class LogicTime
 
   def run(start: 0, finish: 1000)
     (start..finish).each do |i|
+      # sleep 0.01
       @current = i
       observers.each { |o| o.update_time(current) }
     end
