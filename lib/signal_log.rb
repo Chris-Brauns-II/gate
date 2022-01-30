@@ -1,4 +1,4 @@
-class Log
+class SignalLog
   attr_reader :event_bus, :length
 
   def initialize(event_bus, length: 5)

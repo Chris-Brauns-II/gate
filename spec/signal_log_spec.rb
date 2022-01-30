@@ -1,11 +1,11 @@
 require "spec_helper"
 
-require "./lib/log"
+require "./lib/signal_log"
 require "./lib/logic_bus"
 require "./lib/logic_bus_event"
 require "./lib/wire"
 
-RSpec.describe Log do
+RSpec.describe SignalLog do
   subject { described_class.new(event_bus, length: 1) }
 
   describe ".log" do

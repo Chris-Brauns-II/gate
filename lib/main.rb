@@ -1,6 +1,6 @@
 require "./lib/and_gate"
 require "./lib/circuit"
-require "./lib/log"
+require "./lib/signal_log"
 require "./lib/logic_bus"
 require "./lib/logic_bus_event"
 require "./lib/logic_signal"
@@ -56,6 +56,6 @@ circuit = Circuit.new(event_bus: event_bus, logic_time: time)
 
 time.run(finish: 100_000)
 
-log = Log.new(event_bus)
+log = SignalLog.new(event_bus)
 
 puts log.log
