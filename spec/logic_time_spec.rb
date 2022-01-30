@@ -1,7 +1,15 @@
+require "spec_helper"
+
 require "./lib/logic_time"
 
 RSpec.describe LogicTime do
   subject { described_class.new }
+
+  let(:o) do
+    o = double.stub(:update_time).with(an_instance_of(Integer))
+    subject.observe(o)
+    o
+  end
 
   describe ".current" do
     it "returns the current time" do
@@ -11,25 +19,48 @@ RSpec.describe LogicTime do
 
   describe ".observe" do
     it "adds the object to the observers" do
-      o = Object.new
-      subject.observe(o)
-
       expect(subject.observers).to include(o)
     end
   end
 
-  describe ".run" do
-    it "runs for 100 and calls the observer every time" do
-      o = double.stub(:update_time).with(an_instance_of(Integer))
-      subject.observe(o)
-
+  describe ".run_async" do
+    it "runs for 10 and calls the observer every time" do
       (0..10).each do |i|
         expect(o).to receive(:update_time).with(i)
       end
 
-      subject.run(finish: 10)
+      subject.run_async(finish: 10)
       
       expect(subject.current).to eq(10)
+    end
+  end
+
+  describe ".run_temporal" do
+    let(:start_time) { Time.new(2020, 1, 1, 0, 0, 0) }
+
+    before do
+      allow(Time).to receive(:now).and_return(
+        Time.new(2020, 1, 1, 0, 0, 0),
+        Time.new(2020, 1, 1, 0, 0, 0),
+        Time.new(2020, 1, 1, 0, 0, 10),
+        Time.new(2020, 1, 1, 0, 0, 11)
+      )
+    end
+
+    it "runs for 1000 and calls the observer with the conversion of the wall clock time" do
+      expect(o).to receive(:update_time).with(0)
+      expect(o).to receive(:update_time).with(1000)
+
+
+      subject.run_temporal(finish: 1000)
+    end
+  end
+
+  describe ".refresh" do
+    it "calls its observers with the current time" do
+      expect(o).to receive(:update_time).with(0)
+
+      subject.refresh
     end
   end
 end
