@@ -1,9 +1,9 @@
 class Log
-  attr_reader :event_bus
-  LENGTH = 5
+  attr_reader :event_bus, :length
 
-  def initialize(event_bus)
+  def initialize(event_bus, length: 5)
     @event_bus = event_bus
+    @length = length
   end
 
   def log
@@ -36,7 +36,7 @@ class Log
         current_wire_value = wire_event_for_current_time.value
       end
 
-      output = current_wire_value == true ? "‾" * LENGTH : "_" * LENGTH
+      output = current_wire_value == true ? "‾" * length : "_" * length
       line += output
     end
 

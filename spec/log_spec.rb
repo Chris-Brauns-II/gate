@@ -6,7 +6,7 @@ require "./lib/logic_bus_event"
 require "./lib/wire"
 
 RSpec.describe Log do
-  subject { described_class.new(event_bus) }
+  subject { described_class.new(event_bus, length: 1) }
 
   describe ".log" do
     let(:event_bus) do
@@ -25,9 +25,9 @@ RSpec.describe Log do
 
     it "return ASCII for the event_bus" do
       expected_text =
-        "A: ___‾‾‾‾‾\n\n" \
-        "B: ______‾‾\n\n" \
-        "C: _______‾\n\n" \
+        "A: ___‾‾‾‾‾‾‾‾‾\n\n" \
+        "B: ______‾‾‾‾‾‾\n\n" \
+        "C: _______‾‾‾‾‾\n\n" \
 
       expect(subject.log).to eq(expected_text)
     end
