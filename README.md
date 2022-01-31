@@ -10,5 +10,5 @@ bundle exec rspec
 
 Demo
 ```
-ruby ./lib/main.rb
+bundle exec ruby ./lib/main.rb
 ```
