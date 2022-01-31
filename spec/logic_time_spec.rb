@@ -40,10 +40,10 @@ RSpec.describe LogicTime do
 
     before do
       allow(Time).to receive(:now).and_return(
-        Time.new(2020, 1, 1, 0, 0, 0),
-        Time.new(2020, 1, 1, 0, 0, 0),
-        Time.new(2020, 1, 1, 0, 0, 10),
-        Time.new(2020, 1, 1, 0, 0, 11)
+        Time.parse("2022-01-01 00:00:00.00000 -0500"),
+        Time.parse("2022-01-01 00:00:00.00000 -0500"),
+        Time.parse("2022-01-01 00:00:10.00100 -0500"),
+        Time.parse("2022-01-01 00:00:11.00000 -0500"),
       )
     end
 

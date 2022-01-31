@@ -40,6 +40,6 @@ class LogicTime
 
   def reload_logic_time
     now = Time.now
-    @logic_time = (now - start_time) * 100
+    @logic_time = ((now - start_time) * 100).to_i
   end
 end

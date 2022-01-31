@@ -5,8 +5,11 @@ require "./lib/logic_bus_event"
 require "./lib/logic_signal"
 require "./lib/logic_time"
 require "./lib/signal_log"
-require "./lib/time_log"
+require "./lib/value_log"
 require "./lib/wire"
+
+require "pry"
+require "time"
 
 time = LogicTime.new
 
@@ -39,18 +42,24 @@ second_and_gate = AndGate.new(
 event_bus
   .push(LogicBusEvent.new(time: 0, value: false, wire: a))
   .push(LogicBusEvent.new(time: 0, value: false, wire: b))
+  .push(LogicBusEvent.new(time: 0, value: false, wire: c))
   .push(LogicBusEvent.new(time: 0, value: true, wire: d))
+  .push(LogicBusEvent.new(time: 0, value: false, wire: e))
   .push(LogicBusEvent.new(time: 300, value: true, wire: a))
   .push(LogicBusEvent.new(time: 600, value: true, wire: b))
+  .push(LogicBusEvent.new(time: 800, value: false, wire: d))
   .push(LogicBusEvent.new(time: 900, value: false, wire: b))
 
 
 circuit = Circuit.new(event_bus: event_bus, logic_time: time)
 
-time_log = TimeLog.new([a,b,c,d,e], time: time)
+time_log = ValueLog.new([a,b,c,d,e], time: time) do |l|
+  system "clear"
+  puts l
+end
 
-time.run(finish: 1000)
+log = SignalLog.new(event_bus, time: time) do |l|
+  puts l
+end
 
-log = SignalLog.new(event_bus)
-
-puts log.log
+time.run_temporal(finish: 1000)

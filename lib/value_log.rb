@@ -1,8 +1,9 @@
-class TimeLog
+class ValueLog
   attr_reader :wires
 
-  def initialize(wires, time:)
+  def initialize(wires, time:, &block)
     @wires = wires
+    @time_callback = block
 
     time.observe(self)
   end
@@ -15,8 +16,11 @@ class TimeLog
       output += "#{wire.name}:\t#{wire.value}\n"
     end
     output += "\n"
-    # puts output
 
-    output
+    output.tap { |o| time_callback.call(o) }
   end
+
+  private
+
+  attr_reader :time_callback
 end
