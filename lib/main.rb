@@ -9,6 +9,7 @@ require "./lib/value_log"
 require "./lib/wire"
 
 require "pry"
+require 'stackprof'
 require "time"
 
 time = LogicTime.new
@@ -62,4 +63,10 @@ log = SignalLog.new(event_bus, time: time) do |l|
   puts l
 end
 
-time.run_temporal(finish: 1000)
+StackProf.run(mode: :cpu, out: 'tmp/stackprof-cpu-myapp.dump', raw: true) do
+  100.times do |i|
+    i % 10
+    1 / 10
+  end
+end
+
