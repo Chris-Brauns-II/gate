@@ -1,15 +1,15 @@
 class Circuit
-  attr_reader :event_bus
+  attr_reader :logic_bus
 
-  def initialize(event_bus:, logic_time:)
-    @event_bus = event_bus
+  def initialize(logic_bus:, logic_time:)
+    @logic_bus = logic_bus
     @last_updated_time = -1
 
     logic_time.observe(self)
   end
 
   def update_time(time)
-    events = event_bus.consume_between(last_updated_time, time)
+    events = logic_bus.consume_between(last_updated_time, time)
 
     wire_observers = events.map(&:wire).map(&:observers).flatten.uniq
 

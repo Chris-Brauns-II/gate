@@ -10,7 +10,7 @@ RSpec.describe AndGate do
       described_class.new(
         a: a,
         b: b,
-        event_bus: LogicBus.new,
+        logic_bus: LogicBus.new,
         output_wire: Wire.new(false),
         time: LogicTime.new
       )
@@ -29,13 +29,13 @@ RSpec.describe AndGate do
       described_class.new(
         a: a,
         b: b,
-        event_bus: event_bus,
+        logic_bus: logic_bus,
         output_wire: c,
         time: time
       )
     end
     let(:c) { Wire.new(false) }
-    let(:event_bus) { LogicBus.new }
+    let(:logic_bus) { LogicBus.new }
     let(:time) { LogicTime.new }
 
     context "when A and B are true" do
@@ -47,7 +47,7 @@ RSpec.describe AndGate do
         it "publishes a true event for C at 100 greater than the current time" do
           subject.evaluate
 
-          expect(event_bus.bus).to include(LogicBusEvent.new(wire: c, value: true, time: time.current + 100))
+          expect(logic_bus.bus).to include(LogicBusEvent.new(wire: c, value: true, time: time.current + 100))
         end
       end
 
@@ -55,7 +55,7 @@ RSpec.describe AndGate do
         let(:c) { Wire.new(true) }
 
         it "does not publish" do
-          expect(event_bus.bus).to be_empty
+          expect(logic_bus.bus).to be_empty
         end
       end
     end

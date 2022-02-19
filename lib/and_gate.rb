@@ -1,10 +1,10 @@
 class AndGate
-  attr_reader :a, :b, :event_bus, :latency, :output_wire, :time
+  attr_reader :a, :b, :logic_bus, :latency, :output_wire, :time
 
-  def initialize(a:, b:, event_bus:, output_wire:, time:, latency: 100)
+  def initialize(a:, b:, logic_bus:, output_wire:, time:, latency: 100)
     @a = a
     @b = b
-    @event_bus = event_bus
+    @logic_bus = logic_bus
     @output_wire = output_wire
     @time = time
 
@@ -18,7 +18,7 @@ class AndGate
     new_value = a.value && b.value
 
     if new_value != output_wire.value
-      event_bus.push(
+      logic_bus.push(
         LogicBusEvent.new(
           time: time.current + latency,
           wire: output_wire,
@@ -29,6 +29,6 @@ class AndGate
   end
 
   def inspect
-    event_bus.to_s
+    logic_bus.to_s
   end
 end
