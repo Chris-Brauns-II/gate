@@ -1,4 +1,4 @@
-require "./lib/logic_bus_event"
+require "./lib/logic/logic_bus_event"
 
 RSpec.describe LogicBusEvent do
   describe ".==" do

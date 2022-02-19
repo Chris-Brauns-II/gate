@@ -1,6 +1,6 @@
 require "spec_helper"
 
-require "./lib/logic_time"
+require "./lib/logic/logic_time"
 require "./lib/value_log"
 
 RSpec.describe ValueLog do

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-require "./lib/logic_time"
+require "./lib/logic/logic_time"
 
 RSpec.describe LogicTime do
   subject { described_class.new }

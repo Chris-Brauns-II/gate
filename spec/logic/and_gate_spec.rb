@@ -1,8 +1,8 @@
-require "./lib/and_gate"
-require "./lib/logic_bus"
-require "./lib/logic_bus_event"
-require "./lib/logic_time"
-require "./lib/wire"
+require "./lib/logic/and_gate"
+require "./lib/logic/logic_bus"
+require "./lib/logic/logic_bus_event"
+require "./lib/logic/logic_time"
+require "./lib/logic/wire"
 
 RSpec.describe AndGate do
   describe ".initialize" do

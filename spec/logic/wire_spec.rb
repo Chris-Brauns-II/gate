@@ -1,4 +1,4 @@
-require "./lib/wire"
+require "./lib/logic/wire"
 
 RSpec.describe Wire do
   subject { described_class.new(true) }

@@ -1,9 +1,9 @@
 require "spec_helper"
 
 require "./lib/signal_log"
-require "./lib/logic_bus"
-require "./lib/logic_bus_event"
-require "./lib/wire"
+require "./lib/logic/logic_bus"
+require "./lib/logic/logic_bus_event"
+require "./lib/logic/wire"
 
 RSpec.describe SignalLog do
   subject { described_class.new(event_bus, time: time, length: 1, &the_proc) }
