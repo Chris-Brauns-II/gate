@@ -34,6 +34,11 @@ class LogicTime
     end
   end
 
+  def step_temporal
+    reload_logic_time
+    refresh(logic_time)
+  end
+
   private
 
   attr_reader :logic_time

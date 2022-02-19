@@ -14,6 +14,15 @@ RSpec.describe LogicBus do
     end
   end
 
+  describe ".consume_between" do
+    it "returns the events after the beginning time and before and including the end time" do
+      e = LogicBusEvent.new(time: 100, value: false, wire: Wire.new(true))
+      subject.push(e)
+
+      expect(subject.consume_between(-1, 101)).to include(e)
+    end
+  end
+
   describe ".for" do
     it "returns the events for the wire and time" do
       desired_wire = Wire.new(true)

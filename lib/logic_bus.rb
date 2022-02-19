@@ -3,6 +3,10 @@ class LogicBus
     @bus ||= []
   end
 
+  def consume_between(start_time, end_time)
+    bus.select { |lbe| lbe.time > start_time && lbe.time <= end_time }
+  end
+
   def consume_for(time)
     bus.select { |lbe| lbe.time == time }
   end

@@ -10,7 +10,7 @@ RSpec.describe SignalLog do
 
   let(:time) do
     o = double(:current => time_value)
-    o.stub(:observe).with(an_instance_of(described_class))
+    allow(o).to receive(:observe).with(an_instance_of(described_class))
     o
   end
   let(:time_value) { 0 }

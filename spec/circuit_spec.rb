@@ -40,5 +40,20 @@ RSpec.describe Circuit do
         subject
       end
     end
+
+    context "when there are unconsumed events for a previous time" do
+      let(:time) { 101 }
+
+      it "updates Wire values" do
+        expect { subject }
+          .to change { a.value }.from(false).to(true)
+      end
+
+      it "tells Wire Observers to evaluate" do
+        expect(wire_observer).to receive(:evaluate)
+
+        subject
+      end
+    end
   end
 end
