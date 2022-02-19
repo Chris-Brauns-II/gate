@@ -1,4 +1,4 @@
-require "./lib/logic/and_gate"
+require "./lib/logic/gate/and_gate"
 require "./lib/logic/logic_bus"
 require "./lib/logic/logic_bus_event"
 require "./lib/logic/logic_time"

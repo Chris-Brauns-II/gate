@@ -1,12 +1,12 @@
-require "./lib/and_gate"
+require "./lib/logic/gate/and_gate"
 require "./lib/circuit"
-require "./lib/logic_bus"
-require "./lib/logic_bus_event"
+require "./lib/logic/logic_bus"
+require "./lib/logic/logic_bus_event"
 require "./lib/logic_signal"
-require "./lib/logic_time"
+require "./lib/logic/logic_time"
 require "./lib/signal_log"
 require "./lib/value_log"
-require "./lib/wire"
+require "./lib/logic/wire"
 
 require "pry"
 require 'ruby2d'
@@ -51,7 +51,7 @@ end
 
 time = LogicTime.new
 
-event_bus = LogicBus.new
+logic_bus = LogicBus.new
 
 a = Wire.new(name: "A")
 b = Wire.new(name: "B")
@@ -61,12 +61,12 @@ c = Wire.new(name: "C")
 and_gate = AndGate.new(
   a: a,
   b: b,
-  event_bus: event_bus,
+  logic_bus: logic_bus,
   output_wire: c,
   time: time 
 )
 
-event_bus
+logic_bus
   .push(LogicBusEvent.new(time: 0, value: false, wire: a))
   .push(LogicBusEvent.new(time: 0, value: false, wire: b))
   .push(LogicBusEvent.new(time: 0, value: false, wire: c))
@@ -75,14 +75,14 @@ event_bus
   .push(LogicBusEvent.new(time: 900, value: false, wire: b))
 
 
-circuit = Circuit.new(event_bus: event_bus, logic_time: time)
+circuit = Circuit.new(logic_bus: logic_bus, logic_time: time)
 
 time_log = ValueLog.new([a,b,c], time: time) do |l|
   # system "clear"
   # puts l
 end
 
-log = SignalLog.new(event_bus, time: time) do |l|
+log = SignalLog.new(logic_bus, time: time) do |l|
   # puts l
 end
 
